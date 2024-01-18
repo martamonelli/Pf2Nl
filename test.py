@@ -85,12 +85,12 @@ def spectrum_white(f):
 def spectrum_oof(f):
     return param.NET**2*((f**2+param.f_knee**2)/(f**2+param.f_min**2))**param.alpha
     
-plt.loglog(ff[ff > 0],spectrum_white(ff[ff > 0]),linestyle='dashed',color='darkorange')
-plt.loglog(ff[ff > 0],spectrum_oof(ff[ff > 0]),color='orangered')
-plt.xlabel(r'$f$')
-plt.ylabel(r'$P(f)$')
-plt.savefig('Pf.pdf')
-plt.clf()
+#plt.loglog(ff[ff > 0],spectrum_white(ff[ff > 0]),linestyle='dashed',color='darkorange')
+#plt.loglog(ff[ff > 0],spectrum_oof(ff[ff > 0]),color='orangered')
+#plt.xlabel(r'$f$')
+#plt.ylabel(r'$P(f)$')
+#plt.savefig('Pf.pdf')
+#plt.clf()
 
 ##########################################################
 # stuff
@@ -109,7 +109,7 @@ nsto = 3
 ##########################################################
 
 mueller_mat = np.identity(3)
-#mueller_mat[2,2] *= -1
+mueller_mat[2,2] *= -1		#to switch the HWP on
 
 print('now running with mueller matrix:')
 print(mueller_mat)
@@ -188,7 +188,7 @@ plt.loglog(ell,Cls_oof[2,2:],color='orangered')
 plt.loglog(ell,Cls_white[2,2:],linestyle='dashed',color=lighten_color('orangered',0.6))
 plt.ylim(1e-11, 1e-10)
 plt.xlabel(r'$\ell$')
-plt.ylabel(r'$N_\ell^{XY}$ [$\mu$K$^2$]')
+plt.ylabel(r'$\widehat{N}_\ell^{XY}$ [$\mu$K$^2$]')
 plt.legend([("dimgrey","--"), ("darkorange",":"), ("orangered",":")], [r'$TT$', r'$EE$', r'$BB$'],
            handler_map={tuple: AnyObjectHandler()})
 plt.yticks(ticks=[1e-11,2e-11,3e-11,4e-11,5e-11,6e-11,7e-11,8e-11,9e-11,1e-10], labels=[r'$10^{-11}$','','','','','','','','',r'$10^{-10}$'])
