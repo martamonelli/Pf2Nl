@@ -8,7 +8,7 @@ alpha = 1
 omega = 88*2*pi/60
 f_samp = 19.1
 
-NET = 1*10**(-6)
+NET = 10 #[uK sqrt(s)]
 f_min = 1e-03
 f_knee = 4e-03
 alpha = 1

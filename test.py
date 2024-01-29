@@ -96,7 +96,7 @@ def spectrum_oof(f):
 # stuff
 ##########################################################
 
-exp_mat = np.exp(-1j*2*pi*np.einsum('f,t->tf',ff,np.arange(nobs)*delta_t))
+exp_mat = np.exp(1j*2*pi*np.einsum('f,t->tf',ff,np.arange(nobs)*delta_t))/nobs
 
 # best shape for alpha, beta: (nobs, ndet)
 alpha = 2*(0*xi_dets.reshape((1,-1))+(omega*np.arange(nobs)*delta_t).reshape((-1,1)))
@@ -180,17 +180,17 @@ print('exited loop')
 #'''
 
 plt.figure(figsize=(6,4))
-plt.loglog(ell,Cls_oof[0,2:],color='dimgrey')
-plt.loglog(ell,Cls_white[0,2:],linestyle='dashed',color=lighten_color('dimgrey',0.6))
-plt.loglog(ell,Cls_oof[1,2:],color='darkorange')
-plt.loglog(ell,Cls_white[1,2:],linestyle='dashed',color=lighten_color('darkorange',0.6))
-plt.loglog(ell,Cls_oof[2,2:],color='orangered')
-plt.loglog(ell,Cls_white[2,2:],linestyle='dashed',color=lighten_color('orangered',0.6))
-plt.ylim(1e-11, 1e-10)
+plt.loglog(ell,Cls_oof[0,2:]/1e-06,color='dimgrey')
+plt.loglog(ell,Cls_white[0,2:]/1e-06,linestyle='dashed',color=lighten_color('dimgrey',0.6))
+plt.loglog(ell,Cls_oof[1,2:]/1e-06,color='darkorange')
+plt.loglog(ell,Cls_white[1,2:]/1e-06,linestyle='dashed',color=lighten_color('darkorange',0.6))
+plt.loglog(ell,Cls_oof[2,2:]/1e-06,color='orangered')
+plt.loglog(ell,Cls_white[2,2:]/1e-06,linestyle='dashed',color=lighten_color('orangered',0.6))
+plt.ylim(7, 70)
 plt.xlabel(r'$\ell$')
 plt.ylabel(r'$\widehat{N}_\ell^{XY}$ [$\mu$K$^2$]')
 plt.legend([("dimgrey","--"), ("darkorange",":"), ("orangered",":")], [r'$TT$', r'$EE$', r'$BB$'],
            handler_map={tuple: AnyObjectHandler()})
-plt.yticks(ticks=[1e-11,2e-11,3e-11,4e-11,5e-11,6e-11,7e-11,8e-11,9e-11,1e-10], labels=[r'$10^{-11}$','','','','','','','','',r'$10^{-10}$'])
+plt.yticks(ticks=[8,9,10,20,30,40,50,60], labels=['','',r'$10$',r'$20$',r'$30$',r'$40$',r'$50$',r'$60$'])
 plt.savefig('Nl.pdf')
 plt.clf()
